@@ -27,6 +27,7 @@ const Categories = ({ navigation }) => {
       
       {categories.length !== 0 ? 
         <FlatList
+        numColumns={2}
           data={categories}
           renderItem={( {item} ) => {
             return <TouchableOpacity
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
   height: 70,
   padding: 15,
   marginTop:15,
+  marginRight:10,
 
   shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
