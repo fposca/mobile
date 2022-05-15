@@ -1,6 +1,6 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Orders from '../../Screens/Orders';
+import Orders from '../../screens/Orders';
 
 const OrderStack = () => {
 
@@ -9,10 +9,17 @@ const OrderStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                name="Orders"
+                name="Ordenes"
                 component={Orders}
                 options={{
-                    title: "Orders"
+                    title: "Orders",
+                    headerStyle: {
+                        backgroundColor: '#FAE48BFF',
+                      },
+                      headerTintColor: '#666',
+                      headerTitleStyle: {
+                        fontWeight: 'bold',
+                      },
                 }}
             />
         </Stack.Navigator>

@@ -1,10 +1,10 @@
-import TabNavigator from './Navigation/Tabs';
-import { auth } from './Firebase/config';
-
-console.log(auth);
+import ShopProvider from './Context/ShopProvider';
+import MainNavigator from './Navigation';
 
 export default function App() {
   return (
-    <TabNavigator/>
+    <ShopProvider>
+      <MainNavigator/>
+    </ShopProvider>
   );
 }

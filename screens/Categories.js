@@ -1,19 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Text, Button, View, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
-import { fetching } from '../Services/fetch';
+import { signOut } from 'firebase/auth';
+import { useContext } from 'react';
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator,  StyleSheet} from 'react-native'
+import { Shop } from '../Context/ShopProvider';
+import { auth } from '../Firebase/config';
+
 
 const Categories = ({ navigation }) => {
 
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-
-    (async () => {
-      const data = await fetching('https://fakestoreapi.com/products/categories');
-      setCategories(data);
-    })()
-
-  }, [])
+  const {categories} = useContext(Shop);
 
   const handleCategory = (categoryID) => {
     //console.log(categoryID);
@@ -22,79 +16,91 @@ const Categories = ({ navigation }) => {
     })
   }
 
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+
   return (
-    <View style={styles.containertwo}>
+    <View style ={styles.container}>
+     
+     
       
       {categories.length !== 0 ? 
         <FlatList
-        numColumns={2}
+          
           data={categories}
           renderItem={( {item} ) => {
             return <TouchableOpacity
-              onPress={() => handleCategory(item)}
+              onPress={() => handleCategory(item.category)}
             >
-              <View style={styles.main}>
-              <Text style={styles.baseText}>
-                {item}  
+              <Text style ={styles.cat}>
+                {item.category}
               </Text>
-              
-              </View>
-
-              
-            
+             
             </TouchableOpacity>
           }
           }
-          keyExtractor={item => item.toString()}
+          keyExtractor={item => item.id.toString()}
         />
+     
+       
         :
         <ActivityIndicator size={"large"} color={"blue"}/>
       }
+       <TouchableOpacity onPress={handleSignOut}>
+        <Text  style ={styles.buttoner}>
+          Sign out
+        </Text>
+      </TouchableOpacity>
     </View>
+    
   )
 }
 
-export default Categories;
+export default Categories
+
 
 const styles = StyleSheet.create({
-  containertwo: {
+  paddiner: {
+    padding: 20,
+    marginTop:20,
+  },
+  cat: {
+    padding: 20,
+    marginTop:20,
+    backgroundColor:'#FAEA8BFF',
+    borderRadius:15,
+    width: 200,
+    fontWeight:'bold',
+    textAlign:'center'
+  },
+  marginer: { 
+    marginTop:40,
+  },
+  buttoner: {
+    backgroundColor:'#FB6467FF',
+    padding: 20,
+    marginTop:50,
+    textAlign: 'center',
+    width: 200,
+    bottom: 20,
+    position: 'relative',
+    borderRadius:15, 
+    color: 'white', 
+    fontWeight:'bold'
+
+  },
+  container: {
     flex: 1,
-    backgroundColor: "#7CA1B4",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection:'column-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#A6EEE6FF',
+    textAlign: 'center'
   
- 
-   
-  },
-  main : {
-  width: 150,
-  backgroundColor: "#fff",
-  height: 70,
-  padding: 15,
-  marginTop:15,
-  marginRight:10,
-
-  shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    borderRadius: 8,
-  
-    justifyContent:'center'
-  
-
-  },
- 
-  baseText: {
-   
-  
-    textAlign:'center',
-    textTransform:'capitalize',
-    fontSize:12
-    
-
   }
 
-  
-});
+})
