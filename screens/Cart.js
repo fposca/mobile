@@ -15,7 +15,7 @@ const Cart = () => {
   const [loadingCheckout, setLoadingCheckout] = useState(false)
 
   const value = useContext(Shop);
-
+  
   const fnRender = ({ item }) => {
     return (
       <CartItem
@@ -119,7 +119,7 @@ const Cart = () => {
       {/* Este modal debería ser un componente aparte */}
       <Modal
         animationType='slide'
-        transparent={true}
+        transparent={false}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(false)
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   }, 
   buttoner: {
     backgroundColor:'#fcfcfc',
-    padding: 20,
+    padding: 15,
     marginTop:50,
     width: 200,
     textAlign:'center',

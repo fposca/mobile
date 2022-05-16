@@ -4,8 +4,8 @@ const OrderItem = ({item}) => {
 
   return (
     <View>
- 
-        <Text style ={styles.marginer}>Orden: {item.buyer.nombre}, {item.buyer.direccion}</Text>
+        <Text  style ={styles.bold}>Orden</Text>
+        <Text style ={styles.marginer}>Comprador: {item.buyer.nombre}, Lugar:{item.buyer.direccion}</Text>
  
   </View>
   )
@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
         textAlign:'center'
         
     },
+    bold: {
+      fontWeight:'bold',
+      margin:20
+    }
 
 
   })
