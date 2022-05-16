@@ -7,7 +7,7 @@ import { auth } from '../Firebase/config';
 
 const Categories = ({ navigation }) => {
 
-  const {categories} = useContext(Shop);
+  const {categories, clearCarrito} = useContext(Shop);
 
   const handleCategory = (categoryID) => {
     //console.log(categoryID);
@@ -17,7 +17,9 @@ const Categories = ({ navigation }) => {
   }
 
   const handleSignOut = () => {
+    clearCarrito();
     signOut(auth).then(() => {
+    
       // Sign-out successful.
     }).catch((error) => {
       // An error happened.

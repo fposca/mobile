@@ -4,9 +4,9 @@ const OrderItem = ({item}) => {
 
   return (
     <View>
-    <TouchableOpacity >
+ 
         <Text style ={styles.marginer}>Orden: {item.buyer.nombre}, {item.buyer.direccion}</Text>
-    </TouchableOpacity>
+ 
   </View>
   )
 }

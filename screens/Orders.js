@@ -1,12 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Modal, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native'
+import { Image, FlatList, Modal, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native'
 import { Shop } from '../Context/ShopProvider'
 import OrderItem from '../Components/OrderItem'
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+import { db } from "../Firebase/config";
 
 
 
 const Orders = () => {
-  const {orders} = useContext(Shop);
+  const {usuario} = useContext(Shop);
+  const [orders,setOrders]= useState([]);
+
+  useEffect(()=> {
+
+    (async ()=>{
+
+        const queryCollectionOrders = query(collection(db, "orders"),where("usuario", "==", usuario));
+   
+        const querySnapshotOrders = await getDocs(queryCollectionOrders)
+
+        const ordenes=[]
+        querySnapshotOrders.forEach((doc)=> {
+          const orden = {id: doc.id, ...doc.data()}
+          ordenes.push(orden)
+      })
+        setOrders([...ordenes])
+        
+    })()
+
+}, [orders])
+
   const fnRender = ({ item }) => {
     return (
       <OrderItem
@@ -28,7 +52,12 @@ const Orders = () => {
       />
     
       :
-      <ActivityIndicator size={"large"} color={"blue"} />
+      <>
+      <Image
+      style={{ width: 300, height: 150, marginBottom: 15, borderRadius:15 }}
+      source={require("../assets/empty2.gif")}
+    />
+    <Text>No hay ordenes</Text></>
     }
 
   </View>

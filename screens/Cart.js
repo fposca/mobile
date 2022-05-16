@@ -40,6 +40,7 @@ const Cart = () => {
         nombre: nombre,
         direccion: direccion
       },
+      usuario:value.usuario,
       items: value.cart
       ,
       total: total,
