@@ -122,10 +122,10 @@ const styles = StyleSheet.create({
     btn: {
         padding: 15,
         margin: 10,
-        backgroundColor:'#FB6467FF',
+        backgroundColor:'#fafafa',
         borderRadius:15,
         width : 300,
-        color: 'white',
+        color: '#666',
         fontWeight:'bold', 
         textAlign:'center',
        
